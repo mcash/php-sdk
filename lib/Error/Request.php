@@ -1,0 +1,14 @@
+<?php
+
+namespace mCASH\Error;
+
+/**
+ * Request class.
+ * 
+ * @extends Base
+ */
+class Request extends Base
+{
+}
+
+?>

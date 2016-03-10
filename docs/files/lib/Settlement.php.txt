@@ -1,0 +1,46 @@
+<?php
+	
+namespace mCASH;
+
+/**
+ * Settlement class.
+ * 
+ * @extends Resource
+ */
+class Settlement extends Resource {
+	
+	/**
+	 * endpointUrl
+	 * 
+	 * (default value: "settlement")
+	 * 
+	 * @var string
+	 * @access protected
+	 */
+	protected $endpointUrl = "settlement";
+
+    /**
+     * retrieve function.
+     * 
+     * @access public
+     * @static
+     * @param mixed $id (default: null)
+     * @param mixed $opts (default: null)
+     * @return Settlement
+     */
+    public static function retrieve($id = null, $opts = null){
+        return self::_retrieve($id, $opts);
+    } 
+
+    /**
+     * all function.
+     * 
+     * @access public
+     * @static
+     * @return void
+     */
+    public static function all(){
+	    return self::_all();
+    }   
+	
+}

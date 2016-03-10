@@ -1,0 +1,47 @@
+<?php
+	
+namespace mCASH;
+
+/**
+ * PermissionRequestOutcome class.
+ * 
+ * @extends PermissionRequest
+ */
+class PermissionRequestOutcome extends PermissionRequest {
+	
+
+	/**
+	 * endpointUrlAppend
+	 * 
+	 * (default value: "outcome")
+	 * 
+	 * @var string
+	 * @access protected
+	 */
+	protected static $endpointUrlAppend = "outcome";	
+	
+    /**
+     * @param string|null $id
+     * @param array|string|null $opts
+     *
+     * @return PaymentRequestOutcome
+     */
+    public static function retrieve($id = null, $opts = null){
+        return self::_retrieve($id, $opts);
+    } 
+    
+    /**
+     * status function.
+     *
+     * Returns a status code object
+     * 
+     * @access public
+     * @return StatusCode
+     */
+    public function status(){
+	    return StatusCode::retrieve($this->status_code);
+    }
+	
+}
+
+?>

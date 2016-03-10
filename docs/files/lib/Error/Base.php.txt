@@ -1,0 +1,85 @@
+<?php
+
+namespace mCASH\Error;
+
+use Exception;
+
+/**
+ * Abstract Base class.
+ * 
+ * @abstract
+ * @extends Exception
+ */
+abstract class Base extends Exception {
+
+    /**
+     * __construct function.
+     * 
+     * @access public
+     * @param mixed $message
+     * @param mixed $httpStatus (default: null)
+     * @param mixed $httpBody (default: null)
+     * @param mixed $jsonBody (default: null)
+     * @param mixed $httpHeaders (default: null)
+     * @return void
+     */
+    public function __construct( $message, $httpStatus = null, $httpBody = null, $jsonBody = null, $httpHeaders = null ) {
+        parent::__construct($message);
+        $this->httpStatus = $httpStatus;
+        $this->httpBody = $httpBody;
+        $this->jsonBody = $jsonBody;
+        $this->httpHeaders = $httpHeaders;
+    }
+
+    /**
+     * getHttpStatus function.
+     * 
+     * @access public
+     * @return void
+     */
+    public function getHttpStatus(){
+        return $this->httpStatus;
+    }
+
+    /**
+     * getHttpBody function.
+     * 
+     * @access public
+     * @return void
+     */
+    public function getHttpBody(){
+        return $this->httpBody;
+    }
+
+    /**
+     * getJsonBody function.
+     * 
+     * @access public
+     * @return void
+     */
+    public function getJsonBody(){
+        return $this->jsonBody;
+    }
+
+    /**
+     * getHttpHeaders function.
+     * 
+     * @access public
+     * @return void
+     */
+    public function getHttpHeaders(){
+        return $this->httpHeaders;
+    }
+
+    /**
+     * __toString function.
+     * 
+     * @access public
+     * @return void
+     */
+    public function __toString(){
+        $message = explode("\n", parent::__toString());
+        return implode("\n", $message);
+    }
+    
+}

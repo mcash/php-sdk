@@ -1,0 +1,93 @@
+<?php
+
+namespace mCASH;
+
+/**
+ * Requestor class.
+ */
+class Requestor {
+	
+    /**
+     * _apiKey
+     * 
+     * @var mixed
+     * @access private
+     */
+    private $_apiKey;
+
+    /**
+     * _apiBase
+     * 
+     * @var mixed
+     * @access private
+     */
+    private $_apiBase;
+
+    /**
+     * _httpClient
+     * 
+     * @var mixed
+     * @access private
+     * @static
+     */
+    private static $_httpClient;
+
+    /**
+     * __construct function.
+     * 
+     * @access public
+     * @param mixed $apiKey (default: null)
+     * @param mixed $apiBase (default: null)
+     * @return void
+     */
+    public function __construct($apiKey = null, $apiBase = null)
+    {
+        $this->_apiKey = $apiKey;
+        if (!$apiBase) {
+            $apiBase = mCASH::$apiBase;
+        }
+        $this->_apiBase = $apiBase;
+    }
+    
+    /**
+     * request function.
+     * 
+     * @access public
+     * @param mixed $method
+     * @param mixed $url
+     * @param mixed $params
+     * @param mixed $opts
+     * @return void
+     */
+    public function request( $method, $url, $params, $opts ){
+	    return $this->httpClient()->request( $method, $url, $params, $opts );
+    }
+    
+    /**
+     * setHttpClient function.
+     * 
+     * @access public
+     * @static
+     * @param mixed $client
+     * @return void
+     */
+    public static function setHttpClient($client)
+    {
+        self::$_httpClient = $client;
+    }
+
+    /**
+     * httpClient function.
+     * 
+     * @access private
+     * @return void
+     */
+    private function httpClient()
+    {
+        if (!self::$_httpClient) {
+            self::$_httpClient = HttpClient\CurlClient::instance();
+        }
+        return self::$_httpClient;
+    }    
+
+}      
