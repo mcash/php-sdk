@@ -9,6 +9,8 @@ namespace mCASH;
  */
 class Pos extends Resource {
 	
+	protected static $updateParams = array( 'name', 'type', 'location' );
+	
 	/**
 	 * endpointUrl
 	 * 
@@ -41,6 +43,17 @@ class Pos extends Resource {
     public static function retrieve($id = null, $opts = null){
         return self::_retrieve($id, $opts);
     } 
+    
+    /**
+     * all function.
+     * 
+     * @access public
+     * @static
+     * @return void
+     */
+    public static function all(){
+	    return self::_all();
+    }   
 	
 	/**
 	 * update function.
@@ -48,9 +61,9 @@ class Pos extends Resource {
 	 * @access public
 	 * @return boolean
 	 */
-	public function update(){
+	public function save(){
 		$result = $this->_save();
-		return Utilities\Utilities::handleResponseCode( $result->_opts, $result->_values );				
+		return Utilities\Utilities::handleResponseCode( $result->_opts, $result->_values );		
 	}
 	
 	/**
@@ -61,6 +74,7 @@ class Pos extends Resource {
 	 */
 	public function delete(){
 		$result = $this->_delete();
+	
 		return Utilities\Utilities::handleResponseCode( $result->_opts, $result->_values );				
 	}
 	

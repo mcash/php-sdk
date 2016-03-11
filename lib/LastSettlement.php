@@ -24,12 +24,10 @@ class LastSettlement extends Resource {
      * 
      * @access public
      * @static
-     * @param mixed $id (default: null)
-     * @param mixed $opts (default: null)
      * @return LastSettlement
      */
-    public static function retrieve($id = null, $opts = null){
-        return self::_retrieve($id, $opts);
+    public static function retrieve(){
+        return self::_all();
     } 
 
  

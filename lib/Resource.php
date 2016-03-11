@@ -266,12 +266,13 @@ abstract class Resource extends mCASHObject {
 	 */
 	protected function _save($opts = null){
         $params = $this->serializeParameters();
+        
         $sendParams = array();
 
         foreach( $params AS $key => $value ){
-	        if( in_array( $key, static::$updateParams ) ) $sendParams[$key] = $val;
+	        if( in_array( $key, static::$updateParams ) ) $sendParams[$key] = $value;
         }
-      
+	
         if (count($params) > 0) {
             $url = $this->instanceUrl();
             list($response, $opts) = $this->_request('PUT', $url, $sendParams, $opts);
@@ -291,8 +292,10 @@ abstract class Resource extends mCASHObject {
 	 * @return Boolean
 	 */
 	protected function _delete($params = null, $opts = null){
-		// Validate the parameteres
-		self::_validateParams( $params );
+		$url = $this->instanceUrl();
+		list($response, $opts) = $this->_request('DELETE', $url, $params, $opts);
+		$this->refreshFrom($response, $opts);
+		return $this;
 	}
 	
 }

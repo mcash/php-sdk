@@ -41,5 +41,16 @@ class PermissionRequest extends Resource {
     public static function retrieve($id = null, $opts = null){
         return self::_retrieve($id, $opts);
     } 
+    
+    
+    /**
+     * outcome function.
+     * 
+     * @access public
+     * @return PermissionRequestOutcome
+     */
+    public function outcome(){
+	    return PermissionRequestOutcome::retrieve($this->id);
+    }       
 	
 }
