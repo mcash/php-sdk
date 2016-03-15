@@ -38,6 +38,20 @@ mCASH\mCASH::setTestEnvironment(true);
 mCASH\mCASH::setTestToken('kuFFDsfv7QSaYC2Yghn1d5tVcIxmoKUmbOOsdaTFfjo');
 
 try {
+	$user = mCASH\User::create(array(
+		'id' => 'firstapiuser',
+		'roles' => array(
+			'user','superuser'
+		),
+		'secret' => 'klappsecret'
+	));
+	die( var_dump( $user ) );
+} catch( Exception $e ){
+	die( print_r( $e->getMessage() ) );
+}
+
+/* TICKET
+try {
 	$payment = mCASH\PaymentRequest::create(array(
 		'success_return_uri' 	=> 'http://mcash.oleh.dev.klappmedia.no',
 		'failure_return_uri' 	=> 'http://mcash.oleh.dev.klappmedia.no',
@@ -60,7 +74,7 @@ try {
 } catch( Exception $e ){
 	die( $e->getMessage() );
 }
-
+*/
 /* LEDGER
 try {
 	$ledger = mCASH\Ledger::retrieve('5agb95');

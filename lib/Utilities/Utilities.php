@@ -24,7 +24,19 @@ abstract class Utilities {
 			'paymentrequest' 			=> 'mCASH\\PaymentRequest',
 			'paymentrequestoutcome' 	=> 'mCASH\\PaymentRequestOutcome',
 			'report' 					=> 'mCASH\\Report',
-			'ticket' 					=> 'mCASH\\Ticket'
+			'ticket' 					=> 'mCASH\\Ticket',
+			'user'						=> 'mCASH\\User',
+			'ledger'					=> 'mCASH\\Ledger',
+			'lastsettlement'			=> 'mCASH\\LastSettlement',
+			'merchant'					=> 'mCASH\\Merchant',
+			'permissionrequest'			=> 'mCASH\\PermissionRequest',
+			'permissionrequestoutcome'	=> 'mCASH\\PermissionRequestOutcome',
+			'pos'						=> 'mCASH\\Pos',
+			'report'					=> 'mCASH\\Report',
+			'settlement'				=> 'mCASH\\Settlement',
+			'settlementaccount'			=> 'mCASH\\SettlementAccount',
+			'shortlink'					=> 'mCASH\\Shortlink',
+			'statuscode'				=> 'mCASH\\StatusCode'
 		);
 		
 		if (is_array($resp) || is_object($resp)) {
@@ -78,9 +90,21 @@ abstract class Utilities {
 			case 500:
 				throw new \mCASH\Error\Request("500 Error. Malformed data. " . self::handleErrorResponse( $response ) );
 				break;
+			default:
+				throw new \mCASH\Error\Base("The request responded with a unknown response code: {$code}");
+				break;
 		}
+		
 	}
 	
+	/**
+	 * handleErrorResponse function.
+	 * 
+	 * @access public
+	 * @static
+	 * @param mixed $response
+	 * @return string
+	 */
 	public static function handleErrorResponse( $response ){
 		
 		if( isset( $response['error_type'] ) && isset( $response['error_description'] ) ) return "{$response['error_type']}: {$response['error_description']}";
