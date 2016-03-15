@@ -36,7 +36,12 @@ mCASH\mCASH::setUserId('klappuser');
 // Setting test environment to true, and setting the test token
 mCASH\mCASH::setTestEnvironment(true);
 mCASH\mCASH::setTestToken('kuFFDsfv7QSaYC2Yghn1d5tVcIxmoKUmbOOsdaTFfjo');
-
+try {
+	$payment = mCASH\PaymentRequest::retrieve('p0fb29ze1195');
+	var_dump( $payment->capture() );
+} catch( Exception $e ){
+	die( $e->getMessage() );
+}
 /* Retrieve specific settlement
 try {
 	$settlement = mCASH\Settlement::retrieve(1);

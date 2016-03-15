@@ -9,6 +9,8 @@ namespace mCASH;
  */
 class PaymentRequest extends Resource {
 	
+	protected static $updateParams = array( 'action' );
+	
 	/**
 	 * endpointUrl
 	 * 
