@@ -9,6 +9,8 @@ namespace mCASH;
  */
 class User extends Resource {
 	
+	protected static $updateParams = array( 'roles', 'netmask', 'secret', 'pubkey' );
+	
 	/**
 	 * endpointUrl
 	 * 
@@ -49,7 +51,7 @@ class User extends Resource {
 	 * @access public
 	 * @return boolean
 	 */
-	public function update(){
+	public function save(){
 		$result = $this->_save();
 		return Utilities\Utilities::handleResponseCode( $result->_opts, $result->_values );		
 	}

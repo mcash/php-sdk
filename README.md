@@ -135,6 +135,184 @@ $ticket = $payment->ticket()->create(array(
 ));
 ```
 
+## SHORTLINK
+
+When user scans, mCASH sends scan id and argstring, and can receive text and uri which can be transported back to the app. Uri will be opened in a web view inside the app if registered in list of trusted domains.
+
+### Get all shortlinks
+
+Get all the shortlinks by initiating an instance of mCASH\Shortlink with method all
+
+```php
+$all_shortlinks = mCASH\Shortlink::all();
+```
+
+### Create shortlink
+
+Create a new shortlink by initiating an instance of mCASH\Shortlink with method create
+
+```php
+$shortlink = mCASH\Shortlink::create(array(
+	'callback_uri' => 'http://mydomain.com/callback_uri',
+	'description' => 'Short description of shortlink'		
+));
+```
+
+### Retrieve shortlink
+
+Retrieve an existing shortlink by initiating an instance of mCASH\Shortlink with method retrieve
+
+```php
+$shortlink = mCASH\Shortlink::retrieve('shortlink_id');
+```
+
+### Update shortlink
+
+Update an shortlink by initiating an instance of mCASH\Shortlink with method retrieve or create
+
+```php
+$shortlink = mCASH\Shortlink::retrieve('shortlink_id');
+$shortlink->description = "New description";
+$shortlink->save();
+```
+
+### Delete shortlink
+
+Delete an shortlink by initiating an instance of mCASH\Shortlink with method retrieve or create
+
+```php
+$shortlink = mCASH\Shortlink::retrieve('shortlink_id');
+$shortlink->delete();
+```
+
+## SETTLEMENT
+
+mCASH automatically generates settlements at regular intervals specified in the merchant agreement.
+
+### Retrieve all settlements
+
+Fetch all settlements by initiating an instance of mCASH\Settlement with method all
+
+```php
+$all_settlements = mCASH\Settlement::all();
+```
+
+### Retrieve a specific settlement
+
+Fetch a specific settlement by initiating an instance of mCASH\Settlement with method retrieve
+
+```php
+$settlement = mCASH\Settlement::retrieve('settlement_id');
+```
+
+## SETTLEMENT ACCOUNT
+
+Look up information about SettlementAccount
+
+Fetch information about a SettlementAccount by initiating an instance of mCASH\SettlementAccount with method retrieve
+
+```php
+$settlement_account = mCASH\SettlementAccount::retrieve('account_id');
+```
+
+## USER
+
+Each user is created for a specific merchant, which ID is given by the value of the X-Mcash-Merchant header when making a create user request. A user can only interact with the API on behalf of the merchant which it was created for. The user ID is chosen on create and is has to be unique for the parent Merchant.
+
+### Create new user
+
+Create a new user by initiating an instance of mCASH\User with method create
+
+```php
+$user = mCASH\User::create(array(
+	'id' => 'user_id',
+	'roles' => array(
+		'user',
+		'superuser'
+	),
+	'secret' => 'user_secret'
+));
+```
+
+### Retrieve a user
+
+Fetch an existing user by initiating an instance of mCASH\User with method retrieve
+
+```php
+$user = mCASH\User::retrieve('user_id');
+```
+
+### Update a user
+
+Update a user by initating an instance of mCASH\User with either method retrieve or create. 
+
+```php
+$user = mCASH\User::retrieve('user_id');
+$user->secret = "new_secret";
+$user->save();
+```
+
+## POS
+
+The POS endpoint represents a Point Of Sale, managed by the merchant or integrator.
+
+The POS can be physical, like a store till or a vending machine, it can represent a mobile app that moves around, a webshop or a server representing a poster. Defining the type can affect map representation in app.
+
+### Create new POS
+
+Create a new POS by initiating an instance of mCASH\Pos with method create
+
+```php
+$post = mCASH\Pos::create(array(
+	'name'  	=> 'My Store',
+	'type'		=> 'webshop',
+	'id'		=> 'unique_id'	
+));
+```
+
+### Retrieve a POS
+
+Fetch an existing POS by initiating an instance of mCASH\Pos with method retrieve
+
+```php
+$post = mCASH\Pos::retrieve('unique_id');
+```
+
+### List all POS
+
+Get a list of all the existing POS'es by initiating an instance of mCASH\Pos with method all
+
+```php
+$all_pos = mCASH\Pos::all();
+```
+
+### Update POS
+
+Update a POS by initiating an instance of mCASH\Pos with either method retrieve or create
+
+```php
+$pos = mCASH\Pos::retrieve('unique_id');
+$pos->name = "Updated name";
+$pos->save();
+```
+
+### Delete POS
+
+Delete a POS by initiating an instance of mCASH\Pos with either method retrieve or create
+
+```php
+$pos = mCASH\Pos::retrieve('unique_id');
+$pos->delete();
+```
+
+## MERCHANT
+
+Retrieve information about merchant by initiating an instance of mCASH\Merchant with method retrieve
+
+```php
+$merchant = mCASH\Merchant::retrieve('merchant_id');
+```
+
 ## STATUS CODES
 
 Some resources, such as the outcome resources (for payment request and permission request), have a status code field in the response body. The status_code resource lists and describes all possible status codes. 
@@ -197,6 +375,56 @@ $ledger = mCASH\Ledger::retrieve('5agb95');
 $ledger->delete();
 ```
 
+## PERMISSION REQUESTS
+
+Request authorization to access user controlled endpoint.
+
+### Create a new permission request
+
+Create a new permission request by initiating an instance of mCASH\PermissionRequest with method create
+
+```php
+$permission_request = mCASH\PermissionRequest::create(array(
+	'customer' 	=> 'customer_identifier',
+	'pos_id' 	=> 'pos_id',
+	'pos_tid'	=> 'pos_tid',
+	'text'		=> 'Some text',
+	'callback_uri' => 'http://mydomain.com/callback_uri',
+	'scope' 	=> 'address phone',
+	'expires_in' => 3600
+));
+```
+
+### Retrieve a specific permission request
+
+Retrieve an existing perimission request by initiating an instance of mCASH\PermissionRequest with method retrieve
+
+```php
+$permission_request = mCASH\PermissionRequest::retrieve('rid');
+```
+
+## PERMISSION REQUEST OUTCOME
+
+When a user has accepted the permission request, the token data is sent to callback_uri, and is also available at this endpoint.
+
+### Retrieve the outcome of an existing permission request
+
+This has to be done on an instance of mCASH\PermissionRequest
+
+```php
+$permission_request = mCASH\PermissionRequest::retrieve('rid');
+$outcome = $permission_request->outcome();
+```
+
+### Retrieve information about the status code for the permission request
+
+This will return a StatusCode object containing the status code, name and description
+
+```php
+$permission_request = mCASH\PermissionRequest::retrieve('rid');
+$status = $permission_request->outcome()->status();
+```
+
 ## REPORT
 
 The transactions in a Ledger are grouped into Reports. These Reports are collections of transactions that are to be reconciled as a group. At any one time there is only one open Report for each Ledger, and new transactions that are added to the Ledger are appended to the open Report.
@@ -246,6 +474,3 @@ Problems authenticating with mCash API
 
 ### Error\Request
 Error during request to the API
-
-### Error\Base
-Generic errors

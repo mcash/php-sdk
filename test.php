@@ -37,6 +37,102 @@ mCASH\mCASH::setUserId('klappuser');
 mCASH\mCASH::setTestEnvironment(true);
 mCASH\mCASH::setTestToken('kuFFDsfv7QSaYC2Yghn1d5tVcIxmoKUmbOOsdaTFfjo');
 
+/* Retrieve specific settlement
+try {
+	$settlement = mCASH\Settlement::retrieve(1);
+	die( var_dump($settlement) );
+} catch( Exception $e ){
+	die( $e->getMessage() );
+}
+*/
+/* Retrieve all settlements
+try {
+	$all_settlements = mCASH\Settlement::all();
+	die( var_dump( $all_settlements ) );
+} catch( Exception $e ){
+	die( var_dump( $e->getMessage() ) );
+}
+*/
+/* Retrieve and update shortlink 
+try {
+	$shortlink = mCASH\Shortlink::retrieve('8SAI4');
+	$shortlink->description = "Updated description";
+	die( var_dump( $shortlink->save() ) );
+} catch( Exception $e ){
+	die( $e->getMessage() );
+}
+*/
+/* Create shortlink
+try {
+	$shortlink = mCASH\Shortlink::create(array(
+		'callback_uri' => 'http://mydomain.com/callback_uri',
+		'description' => 'Short description of shortlink'
+	));
+	die( var_dump( $shortlink ) );
+} catch( Exception $e ){
+	die( $e->getMessage() );
+} */
+/* Fetch Merchant
+try {
+ 	$merchant = mCASH\Merchant::retrieve('klapp');
+ 	die( var_dump( $merchant ) );
+} catch( Exception $e ){
+	die( $e->getMessage() );
+} */
+/* Retrieve & update POS
+try {
+	$pos = mCASH\Pos::retrieve('unique_id');
+	$pos->name = "My Store V2";
+	die( var_dump( $pos->save() ) );
+
+} catch( Exception $e ){
+	die( $e->getMessage() );
+} */
+/* Create new POS
+try {
+	$pos = mCASH\Pos::create(array(
+		'name'  	=> 'My Store',
+		'type'		=> 'webshop',
+		'id'		=> 'unique_id'
+	));
+	die( var_dump( $pos ) );
+} catch( Exception $e ){
+	die( $e->getMessage() );
+}
+*/
+/* Retrieving all POS
+try {
+	$all_pos = mCASH\Pos::all();
+	die( var_dump( $all_pos ) );
+} catch( Exception $e ){
+	die( $e->getMessage() );
+}
+*/
+/* Updating user 
+try {
+	$user = mCASH\User::retrieve('firstapiuser');
+	$user->secret = "UpdatedSecret";
+	$user->roles = array('user','superuser');
+	die( var_dump( $user->save() ) );	
+} catch( Exception $e ){
+	die( $e->getMessage() );
+}
+*/
+/* Create user 
+try {
+	$user = mCASH\User::create(array(
+		'id' => 'firstapiuser',
+		'roles' => array(
+			'user','superuser'
+		),
+		'secret' => 'klappsecret'
+	));
+	die( var_dump( $user ) );
+} catch( Exception $e ){
+	die( print_r( $e->getMessage() ) );
+}
+*/
+/* TICKET
 try {
 	$user = mCASH\User::create(array(
 		'id' => 'firstapiuser',

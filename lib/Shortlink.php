@@ -9,6 +9,8 @@ namespace mCASH;
  */
 class Shortlink extends Resource {
 	
+	protected static $updateParams = array( 'callback_uri', 'description' );
+	
 	/**
 	 * endpointUrl
 	 * 
@@ -43,12 +45,12 @@ class Shortlink extends Resource {
     } 
 
 	/**
-	 * update function.
+	 * save function.
 	 * 
 	 * @access public
 	 * @return boolean
 	 */
-	public function update(){
+	public function save(){
 		$result = $this->_save();
 		return Utilities\Utilities::handleResponseCode( $result->_opts, $result->_values );				
 	}

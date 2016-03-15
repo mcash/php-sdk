@@ -91,7 +91,7 @@ abstract class Utilities {
 				throw new \mCASH\Error\Request("500 Error. Malformed data. " . self::handleErrorResponse( $response ) );
 				break;
 			default:
-				throw new \mCASH\Error\Base("The request responded with a unknown response code: {$code}");
+				throw new \mCASH\Error\Api("The request responded with a unknown response code: {$code}");
 				break;
 		}
 		
