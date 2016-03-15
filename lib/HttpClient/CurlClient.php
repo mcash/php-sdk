@@ -129,7 +129,7 @@ class CurlClient implements ClientInterface {
 		
 		// Close the curl connection
         curl_close($curl);
-		if( $method == "put" ) var_dump( $response );
+		
 		// Run a check on the response to validate its data
 		\mCASH\Utilities\Utilities::handleResponseCode( $code, $response );
 
