@@ -78,7 +78,6 @@ abstract class Resource extends mCASHObject {
         $base = static::classUrl();
         $extn = urlencode($id);
         $apnd = static::classAppendUrl();
-		var_dump("$base$extn/$apnd");
         return "$base$extn/$apnd";
     }       
 
