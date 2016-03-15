@@ -96,7 +96,7 @@ class CurlClient implements ClientInterface {
 	    if( mCASH::getApiLevel() == "SECRET" ){
 		    $headers['Authorization'] = "SECRET " . mCASH::getApiSecret();
 	    }
-
+		if( $method == "put" ) var_dump( self::encode($params) );
         $opts[CURLOPT_URL] = $absUrl;
         $opts[CURLOPT_RETURNTRANSFER] = true;
         $opts[CURLOPT_CONNECTTIMEOUT] = 30;
