@@ -134,6 +134,20 @@ try {
 */
 /* TICKET
 try {
+	$user = mCASH\User::create(array(
+		'id' => 'firstapiuser',
+		'roles' => array(
+			'user','superuser'
+		),
+		'secret' => 'klappsecret'
+	));
+	die( var_dump( $user ) );
+} catch( Exception $e ){
+	die( print_r( $e->getMessage() ) );
+}
+
+/* TICKET
+try {
 	$payment = mCASH\PaymentRequest::create(array(
 		'success_return_uri' 	=> 'http://mcash.oleh.dev.klappmedia.no',
 		'failure_return_uri' 	=> 'http://mcash.oleh.dev.klappmedia.no',
