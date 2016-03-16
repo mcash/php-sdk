@@ -155,7 +155,7 @@ abstract class Resource extends mCASHObject {
 			array_merge( mCASH::defaultHeaders()->Headers, Utilities\Headers::parse( $opts )->Headers )
         );
         
-        $this->refreshFrom(json_decode( $response ), $this->_opts);
+        $this->refreshFrom(json_decode( $response, true ), $this->_opts);
         return $this;
     }
 
@@ -274,7 +274,7 @@ abstract class Resource extends mCASHObject {
         if (count($params) > 0) {
             $url = $this->instanceUrl();
             list($response, $opts) = $this->_request('PUT', $url, $sendParams, $opts);
-            $this->refreshFrom($response, $opts);
+            $this->refreshFrom(json_decode($response, true), $opts);
         }
         return $this;		
 	}
@@ -292,7 +292,7 @@ abstract class Resource extends mCASHObject {
 	protected function _delete($params = null, $opts = null){
 		$url = $this->instanceUrl();
 		list($response, $opts) = $this->_request('DELETE', $url, $params, $opts);
-		$this->refreshFrom($response, $opts);
+		$this->refreshFrom(json_decode($response, true), $opts);
 		return $this;
 	}
 	

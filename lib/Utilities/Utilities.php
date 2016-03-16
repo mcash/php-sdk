@@ -67,7 +67,9 @@ abstract class Utilities {
 	public static function handleResponseCode( $code, $response = null ){
 		
 		// Convert $response from json string to array
-		$response = ( empty( $response ) ) ? array() : json_decode( $response, true );
+		if( !is_array( $response ) ){
+			$response = ( empty( $response ) ) ? array() : json_decode( $response, true );
+		}
 
 		switch( $code ){
 			case 200:
@@ -91,7 +93,7 @@ abstract class Utilities {
 				throw new \mCASH\Error\Request("500 Error. Malformed data. " . self::handleErrorResponse( $response ) );
 				break;
 			default:
-				throw new \mCASH\Error\Api("The request responded with a unknown response code: {$code}");
+				throw new \mCASH\Error\Api("The request responded with a unknown response code: " . json_encode( $code ) );
 				break;
 		}
 		

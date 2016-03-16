@@ -9,7 +9,7 @@ namespace mCASH;
  */
 class PaymentRequest extends Resource {
 	
-	protected static $updateParams = array( 'action' );
+	protected static $updateParams = array( 'action', 'ledger', 'display_message_uri', 'callback_uri', 'amount', 'additional_amount', 'refund_id', 'capture_id', 'currency', 'text' );
 	
 	/**
 	 * endpointUrl

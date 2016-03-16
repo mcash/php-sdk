@@ -196,21 +196,29 @@ class mCASHObject {
      * @return void
      */
     public function refreshFrom($values, $opts, $partial = false){
+	    
         $this->_opts = $opts;
+		
+		if( is_array( $values ) ){
+	        if ($partial) {
+	            $removed = null;
+	        } else {
+	            $removed = array_diff(array_keys($this->_values), array_keys($values));
+	        }			
+		}
+		
+		if( !empty( $removed ) ){
+	        foreach ($removed as $k) {
+	            unset($this->$k);
+	        }			
+		}
 
-        if ($partial) {
-            $removed = null;
-        } else {
-            $removed = array_diff(array_keys($this->_values), array_keys($values));
-        }
+		if( !empty( $values ) ){
+	        foreach ($values as $k => $v) {
+	            $this->_values[$k] = $v;
+	        }			
+		}
 
-        foreach ($removed as $k) {
-            unset($this->$k);
-        }
-
-        foreach ($values as $k => $v) {
-            $this->_values[$k] = $v;
-        }
     }
 
     /**
