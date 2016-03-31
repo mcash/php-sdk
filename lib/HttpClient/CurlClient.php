@@ -89,14 +89,15 @@ class CurlClient implements ClientInterface {
 	    // Check if we are using Key as signature, then we need to SHA encrypt this
 	    if( mCASH::getApiLevel() == "KEY" ){
  		    $headers['X-Mcash-Timestamp'] = date( 'Y-m-d H:i:s' );
-		    $headers['X-Mcash-Content-Digest'] = ( empty( $params ) ) ? $this->contentDigest("") : $this->contentDigest(self::encode( $params ));
-		    $headers['Authorization'] = "RSA-SHA256 " . $this->sign(strtoupper($method), $absUrl, $headers, mCASH::getApiSecret());
+		    $headers['X-Mcash-Content-Digest'] = ( empty( $params ) ) ? \mCASH\Utilities\Encryption::contentDigest("") : \mCASH\Utilities\Encryption::contentDigest(self::encode( $params ));
+		    $headers['Authorization'] = "RSA-SHA256 " . \mCASH\Utilities\Encryption::sign(strtoupper($method), $absUrl, $headers, mCASH::getApiSecret());
 	    }
 	    // When using secret as signature
 	    if( mCASH::getApiLevel() == "SECRET" ){
 		    $headers['Authorization'] = "SECRET " . mCASH::getApiSecret();
 	    }
 
+		
         $opts[CURLOPT_URL] = $absUrl;
         $opts[CURLOPT_RETURNTRANSFER] = true;
         $opts[CURLOPT_CONNECTTIMEOUT] = 30;
@@ -167,85 +168,6 @@ class CurlClient implements ClientInterface {
 
         $msg .= "\n\n(Network error [errno $errno]: $message)";
         throw new Error\ApiConnection($msg);
-    }
-
-    /**
-     * buildSignatureMessage function.
-     * 
-     * @access public
-     * @param mixed $requestMethod
-     * @param mixed $url
-     * @param mixed $headers
-     * @return string
-     */
-    public function buildSignatureMessage($requestMethod, $url, $headers) {
-        // Find headers that start with X-MCASH
-        $mcashHeaders = array();
-        foreach ($headers as $key => $value) {
-            $ucKey = strtoupper($key);
-            if (substr($ucKey, 0, 7) === "X-MCASH") {
-                $mcashHeaders[$ucKey] = $value;
-            }
-        }
-
-        // Sort headers by key
-        ksort($mcashHeaders);
-
-        // Create key value pairs 'key=value'
-        $headerPairs = array();
-        foreach ($mcashHeaders as $key => $value) {
-            $headerPairs[] = sprintf("%s=%s", $key, $value);
-        }
-
-        // Join header pairs
-        $headerString = implode("&", $headerPairs);
-
-        return sprintf(
-            "%s|%s|%s", strtoupper($requestMethod), $url, $headerString
-        );
-    }
-
-    /**
-     * contentDigest function.
-     * 
-     * @access private
-     * @param string $data (default: "")
-     * @return string
-     */
-    private function contentDigest($data) {
-        $digest = "SHA256=" . base64_encode(hash("sha256", $data, true));
-		return $digest;
-    }
-
-    /**
-     * sign_pkcs1 function.
-     * 
-     * @access public
-     * @param mixed $key
-     * @param mixed $data
-     * @return string
-     *
-     * Throws Error\Base
-     */
-    public function sign_pkcs1($key, $data) {
-        if (!openssl_sign($data, $signature, $key, "sha256")) {
-          	throw new Error\Base("Could not create a signed key pair");
-        }
-        return base64_encode($signature);
-    }
-    
-    /**
-     * sign function.
-     * 
-     * @access private
-     * @param mixed $requestMethod
-     * @param mixed $url
-     * @param mixed $headers
-     * @param mixed $priv_key
-     * @return string
-     */
-    private function sign($requestMethod, $url, $headers, $priv_key) {
-        return $this->sign_pkcs1($priv_key, $this->buildSignatureMessage($requestMethod, $url, $headers));
     }
 
     /**

@@ -67,6 +67,7 @@ class PaymentRequest extends Resource {
      * @throws Error\Request
      */
     public function capture(){
+	    self::$updateParams = array( 'ledger', 'action',  'display_message_uri', 'callback_uri' );
 	    $this->action = 'capture';
 		$result = $this->_save();
 		return Utilities\Utilities::handleResponseCode( $result->_opts, $result->_values );
@@ -95,6 +96,7 @@ class PaymentRequest extends Resource {
      * @throws Error\Request
      */
     public function refund(){
+	    self::$updateParams = array( 'amount', 'text', 'refund_id', 'additional_amount', 'currency', 'action' );
 	    $this->action = 'refund';
 		$result = $this->_save();
 		return Utilities\Utilities::handleResponseCode( $result->_opts, $result->_values );

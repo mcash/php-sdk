@@ -16,6 +16,7 @@ require_once( dirname( __FILE__ ) . '/lib/HttpClient/CurlClient.php' );
 // Utilities
 require_once( dirname( __FILE__ ) . '/lib/Utilities/Headers.php' );
 require_once( dirname( __FILE__ ) . '/lib/Utilities/Utilities.php' );
+require_once( dirname( __FILE__ ) . '/lib/Utilities/Encryption.php' );
  
 // Error handling
 require_once( dirname( __FILE__ ) . '/lib/Error/Base.php' );

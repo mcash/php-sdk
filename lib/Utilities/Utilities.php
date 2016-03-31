@@ -8,7 +8,7 @@ namespace mCASH\Utilities;
  * @abstract
  */
 abstract class Utilities {
-
+	
 	/**
 	 * convertToMCASHObject function.
 	 * 

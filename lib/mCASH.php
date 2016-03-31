@@ -7,11 +7,36 @@ namespace mCASH;
  */
 class mCASH {
 	
+	// @var mCASH Public Key
+	public static $mcashPubKey = "-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyGr/0kllDmLNq8KblWJt
+Ths43xqlj0q++xWdHjZKL/6Ko1/NouQsWCVhtoRvAwKWc8TKhVDfRn3an7zBnnyD
+/9BXiHoN2OFfogwlY/EAHX4MbKR/0Ankqo5OPG875IpqrZJvWZ/1/NG5epuJAWYG
+dxrlaS0QqueX8sl77bAA5U7CYEvUswiFQ3Fegm2xJzVYgTh81ScfPw8G+JyugxCR
+C/guFdebyYqSGLRoC/A7oUrEyqUr04PSx8J1Axbp46ml0l6M9cS5e1YRyYREAB14
+hxeVSYbgALaCSD+44YeN5XWgzqezocGdilNumPaQW1iVeRAgdTginTgk4rHohynp
+AwIDAQAB
+-----END PUBLIC KEY-----";
+	
+	// @var mCASH Test Public Key
+	public static $mCASHPubTestKey = "-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA8Pg5kMWZzX0U+ZGts6Ws
+oLrI1bN5PjXzFRAPza19qYrONVxhFlJx8AQWohISL1hKVPJCMuyQKhs0/2jtWk+E
+mDHXFafW+kYV7lseznj6nW49VFyxHYdQDNHgpyUA5p+lmZABbmcKGabw/Cp28vtH
+im4zWBGVXnQ7UPm1peMzeuaB7L246J+ZcfLpd3trSWg2mywB23rqELzTNKi0s7cb
+kS+2gk5B72q3qcaTO47rPgEVcUTB2A+jxcu6rOVFCbhQ8+JkLDPeHPDuIBQ5mAwN
+XLY+3ffovc31S5cMhquiKaYYwiuxeI23AWtNV2FoD00bm4q+5XCuBGgPJf3nkNYV
+eQIDAQAB
+-----END PUBLIC KEY-----";
+	
 	// @var string Authentication level to use
 	public static $ApiLevel = "KEY"; // KEY / SECRET
 
 	// @var string API secret or key
 	public static $ApiSecret;
+	
+	// @var string Public Key
+	public static $ApiPublicKey;
 	
 	// @var string The mCASH Merchant ID
 	public static $MerchantId;
@@ -117,6 +142,31 @@ class mCASH {
     {
         self::$ApiSecret = $apiSecret;
     }
+    
+    /**
+     * getApiPublicSecret function.
+     * 
+     * @access public
+     * @static
+     * @return string
+     */
+    public static function getApiPublicKey()
+    {
+        return self::$ApiPublicKey;
+    }
+
+    /**
+     * setApiPublicSecret function.
+     * 
+     * @access public
+     * @static
+     * @param mixed $apiSecret
+     * @return void
+     */
+    public static function setApiPublicKey($pubkey)
+    {
+        self::$ApiPublicKey = $pubkey;
+    }    
 
     /**
      * getMerchantId function.

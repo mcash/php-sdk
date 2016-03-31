@@ -82,6 +82,41 @@ class Headers {
         }
 
     }
+    
+    /**
+     * getallheaders function.
+     * 
+     * @access public
+     * @static
+     * @return void
+     */
+    public static function getallheaders(){ 
+        foreach($_SERVER as $K=>$V){$a=explode('_' ,$K); 
+            if(array_shift($a)=='HTTP'){ 
+                array_walk($a,function(&$v){$v=ucfirst(strtolower($v));});
+                $retval[join('-',$a)]=$V;
+            }
+        }
+        if(isset($_SERVER['CONTENT_TYPE'])) $retval['Content-Type'] = $_SERVER['CONTENT_TYPE'];
+        if(isset($_SERVER['CONTENT_LENGTH'])) $retval['Content-Length'] = $_SERVER['CONTENT_LENGTH'];
+        return $retval;
+    }
+    
+    /**
+     * request_headers function.
+     * 
+     * @access public
+     * @static
+     * @return void
+     */
+    public static function request_headers(){
+        if( function_exists('apache_request_headers') ) {
+            return apache_request_headers();
+        } else {
+            return $this->getallheaders();
+        }
+    }
+    
 	
 }
 	
