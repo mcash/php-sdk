@@ -133,7 +133,7 @@ class CurlClient implements ClientInterface {
 		
 		// Run a check on the response to validate its data
 		\mCASH\Utilities\Utilities::handleResponseCode( $code, $response );
-
+		
 		// Returns the result from the query as an array consisting of (data, httpcode, response headers)
         return array($response, $code, $rheaders);		
 	
