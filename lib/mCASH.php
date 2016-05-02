@@ -45,7 +45,7 @@ eQIDAQAB
 	public static $UserID;
 	
     // @var string The base URL for the  API.
-    public static $apiBase = 'https://api.mca.sh/merchant/v1';
+    public static $apiBase = 'https://api-dot-paymentsdoneright.appspot.com/merchant/v1'; //'https://api.mca.sh/merchant/v1'
     
     // @var string the base URL for the test API
     public static $testApiBase = 'https://mcashtestbed.appspot.com/merchant/v1';

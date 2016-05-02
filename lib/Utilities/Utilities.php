@@ -93,7 +93,7 @@ abstract class Utilities {
 				throw new \mCASH\Error\Request("500 Error. Malformed data. " . self::handleErrorResponse( $response ) );
 				break;
 			default:
-				throw new \mCASH\Error\Api("The request responded with a unknown response code: " . json_encode( $code ) );
+				throw new \mCASH\Error\Api("The request responded with a unknown response code {$code}: " . self::handleErrorResponse( $response ) );
 				break;
 		}
 		
@@ -110,6 +110,7 @@ abstract class Utilities {
 	public static function handleErrorResponse( $response ){
 		
 		if( isset( $response['error_type'] ) && isset( $response['error_description'] ) ) return "{$response['error_type']}: {$response['error_description']}";
+		else return json_encode( $response );
 		
 	}
 	

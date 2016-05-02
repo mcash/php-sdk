@@ -111,6 +111,7 @@ class CurlClient implements ClientInterface {
 
         $opts[CURLOPT_HTTPHEADER] = $sheaders;
 		$opts[CURLOPT_SSL_VERIFYPEER] = false;
+		$opts[CURLOPT_SSLVERSION] = 1;
 		$opts[CURLOPT_FOLLOWLOCATION] = true;
 		
         curl_setopt_array($curl, $opts);
@@ -125,9 +126,9 @@ class CurlClient implements ClientInterface {
             curl_close($curl);
             $this->handleCurlError($absUrl, $errno, $message);
         }                    	
-		
+			
         $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-		
+	
 		// Close the curl connection
         curl_close($curl);
 		

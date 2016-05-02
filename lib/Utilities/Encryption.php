@@ -67,7 +67,7 @@ abstract class Encryption {
      */
     public static function sign_pkcs1($key, $data) {
         if (!openssl_sign($data, $signature, $key, "sha256")) {
-          	throw new Error\Base("Could not create a signed key pair");
+          	throw new \mCASH\Error\Api("Could not create a signed key pair");
         }
         return base64_encode($signature);
     }

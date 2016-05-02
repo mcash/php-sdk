@@ -45,7 +45,7 @@ class mCASHObject {
      * @return void
      */
     public function __construct($id = null, $opts = null){
-        $this->_opts = $opts ? $opts : null;
+        $this->_opts = $opts ? $opts : new \stdClass();
         $this->_values = array();
         $this->_unsavedValues = null;
         $this->_retrieveOptions = array();
