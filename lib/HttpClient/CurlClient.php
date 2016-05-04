@@ -88,7 +88,8 @@ class CurlClient implements ClientInterface {
 	    
 	    // Check if we are using Key as signature, then we need to SHA encrypt this
 	    if( mCASH::getApiLevel() == "KEY" ){
- 		    $headers['X-Mcash-Timestamp'] = date( 'Y-m-d H:i:s' );
+		    $date_utc = new \DateTime(null, new \DateTimeZone("UTC"));
+ 		    $headers['X-Mcash-Timestamp'] = $date_utc->format('Y-m-d H:i:s');
 		    $headers['X-Mcash-Content-Digest'] = ( empty( $params ) ) ? \mCASH\Utilities\Encryption::contentDigest("") : \mCASH\Utilities\Encryption::contentDigest(self::encode( $params ));
 		    $headers['Authorization'] = "RSA-SHA256 " . \mCASH\Utilities\Encryption::sign(strtoupper($method), $absUrl, $headers, mCASH::getApiSecret());
 	    }
