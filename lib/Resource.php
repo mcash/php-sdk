@@ -189,7 +189,7 @@ abstract class Resource extends mCASHObject {
      * @param mixed $opts (default: null)
      * @return mCASHObject|static
      */
-    protected function _request( $method, $url, $params = array(), $opts = null ){
+    protected static function _request( $method, $url, $params = array(), $opts = null ){
 	    $opts = array_merge( mCASH::defaultHeaders()->Headers, Utilities\Headers::parse( $opts )->Headers );
 		$requestor = new Requestor(mCASH::getApiSecret(), static::baseUrl());
 		$result = $requestor->request( $method, $url, $params, $opts );

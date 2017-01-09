@@ -8,7 +8,7 @@ namespace mCASH;
 class mCASH {
 	
 	// @var mCASH Public Key
-	public static $mcashPubKey = "-----BEGIN PUBLIC KEY-----
+	public static $mCASHPubKey = "-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyGr/0kllDmLNq8KblWJt
 Ths43xqlj0q++xWdHjZKL/6Ko1/NouQsWCVhtoRvAwKWc8TKhVDfRn3an7zBnnyD
 /9BXiHoN2OFfogwlY/EAHX4MbKR/0Ankqo5OPG875IpqrZJvWZ/1/NG5epuJAWYG

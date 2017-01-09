@@ -53,8 +53,11 @@ class PaymentRequest extends Resource {
      * @throws Error\Request
      */
     public function reauthorize(){
+	    $temp_text = $this->text;
+	    $this->text = "";
 	    $this->action = 'reauth';
 		$result = $this->_save();
+		$this->text = $temp_text;
 		return Utilities\Utilities::handleResponseCode( $result->_opts, $result->_values );
     }  
        

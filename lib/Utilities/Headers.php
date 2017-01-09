@@ -113,7 +113,7 @@ class Headers {
         if( function_exists('apache_request_headers') ) {
             return apache_request_headers();
         } else {
-            return $this->getallheaders();
+            return self::getallheaders();
         }
     }
     
